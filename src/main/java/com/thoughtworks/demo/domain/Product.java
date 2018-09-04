@@ -1,10 +1,8 @@
 package com.thoughtworks.demo.domain;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
 public class Product {
 
   @Id
@@ -15,8 +13,7 @@ public class Product {
   public Product() {
   }
 
-  public Product(String id, String name, String description) {
-    this.id = id;
+  public Product(String name, String description) {
     this.name = name;
     this.description = description;
   }
