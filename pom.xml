@@ -25,7 +25,9 @@
         <mockito.all>1.10.19</mockito.all>
         <mockito.extension>1.0.2</mockito.extension>
         <junit.jupiter.engine>5.2.0</junit.jupiter.engine>
-        <jacoco.maven.plugin>0.8.0</jacoco.maven.plugin>
+        <jacoco.maven.plugin>0.8.2</jacoco.maven.plugin>
+        <maven.surefire.plugin>2.22.0</maven.surefire.plugin>
+        <sonar.jacoco.reportPaths>target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPaths>
     </properties>
 
     <dependencies>
@@ -154,8 +156,9 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21.0</version>
+                <version>${maven.surefire.plugin}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
@@ -163,6 +166,64 @@
                         <version>6.1.1</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.maven.plugin}</version>
+                <configuration>
+                    <destFile>${basedir}/${sonar.jacoco.reportPaths}</destFile>
+                    <dataFile>${basedir}/${sonar.jacoco.reportPaths}</dataFile>
+                    <excludes>
+                        <exclude>com/thoughtworks/demo/domain/**</exclude>
+                        <exclude>com/thoughtworks/demo/config/**</exclude>
+                        <exclude>com/thoughtworks/demo/DemoApplication.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.9</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>CLASS</counter>
+                                            <value>MISSEDCOUNT</value>
+                                            <maximum>0</maximum>
+                                        </limit>
+                                        <limit>
+                                            <counter>METHOD</counter>
+                                            <value>MISSEDCOUNT</value>
+                                            <maximum>0</maximum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

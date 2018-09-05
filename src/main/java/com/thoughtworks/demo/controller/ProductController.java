@@ -22,7 +22,7 @@ public class ProductController {
   @Autowired
   ProductService service;
 
-  @GetMapping()
+  @GetMapping(produces = {APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE})
   public ResponseEntity<Iterable<Product>> getProduct() {
     return new ResponseEntity<>(service.getProducts(), OK);
   }
