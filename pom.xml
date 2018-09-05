@@ -27,6 +27,7 @@
         <junit.jupiter.engine>5.2.0</junit.jupiter.engine>
         <jacoco.maven.plugin>0.8.2</jacoco.maven.plugin>
         <maven.surefire.plugin>2.22.0</maven.surefire.plugin>
+        <swagger>2.9.2</swagger>
         <sonar.jacoco.reportPaths>target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPaths>
     </properties>
 
@@ -123,6 +124,16 @@
             <groupId>name.falgout.jeffrey.testing.junit5</groupId>
             <artifactId>mockito-extension</artifactId>
             <version>${mockito.extension}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger}</version>
         </dependency>
 
         <dependency>
