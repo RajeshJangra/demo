@@ -1,8 +1,10 @@
 package com.thoughtworks.demo.domain;
 
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
+@XmlRootElement
 public class Product {
 
   @Id
@@ -16,6 +18,10 @@ public class Product {
   public Product(String name, String description) {
     this.name = name;
     this.description = description;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getId() {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
 @RestController("products")
 public class ProductController {
@@ -26,11 +27,8 @@ public class ProductController {
     return new ResponseEntity<>(service.getProducts(), OK);
   }
 
-  @PostMapping(consumes = APPLICATION_JSON_VALUE)
+  @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = {APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE})
   public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-    LOGGER.trace("Tracing");
-    LOGGER.info("Debugging");
-    LOGGER.error("Erroring");
     return new ResponseEntity<>(service.createProduct(product), OK);
   }
 }
